@@ -1,0 +1,61 @@
+
+
+
+<form #form="ngForm"(ngSubmit)="updateEmployee()">
+  <div class="container custom-container">
+      <div class="col-md-12">
+        <div class="form-group">
+        <h3 class="mb-3 text-center">Update Employee</h3>
+        <label for="name">ENter your name</label>
+       <input type="text" id="name" required [(ngModel)]="employeeData.name" name="name" #fname="ngModel" class="form-control">
+       <div [hidden]="fname.valid || fname.pristine" class="alert alert-danger">
+        Name required
+      </div>
+      </div>
+      <div class="form-group" [class.has-error]="email.invalid && email.touched">
+        <label for="email">ENter your email</label>
+        <input id="email" required email type="text" [(ngModel)]="employeeData.email" name="email" #email="ngModel" class="form-control">
+        <div class="alert alert-danger" *ngIf="email.errors?.required && email.touched">
+          Email is required
+        </div>
+         <div class="alert alert-danger" *ngIf="email.errors?.email && email.touched">
+           Email is invalid
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" [(ngModel)]="employeeData.password" required password name="password" #password="ngModel" class="form-control rounded-0" required maxlength="80" minlength="5">
+        <div class="alert alert-danger" *ngIf="password.errors?.required && password.touched">
+            Password is required
+          </div>
+    </div>
+      <div class="form-group">
+        <label for="joindate">ENter your Joining data</label>
+        <input type="date" id="joindate" required [(ngModel)]="employeeData.joiningDate" name="joindate" #jdate="ngModel" class="form-control">
+        <div [hidden]="jdate.valid ||jdate.untouched" class="alert alert-danger">Date required</div>
+      </div>
+      <div class="form-group">
+        <label for="country">ENter your country</label>
+        <input id="country" required type="text" [(ngModel)]="employeeData.country" name="country" #count="ngModel" class="form-control">
+        <div [hidden]="count.valid || count.pristine" class="alert alert-danger">
+          Country required
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="phone">ENter your phone</label>
+        <input type="tel"[pattern]="mobNumberPattern" id="phone" required [(ngModel)]="employeeData.phone" name="phone" #phn="ngModel" class="form-control">
+        <div class="alert alert-danger" *ngIf="phn.errors?.required && phn.touched">
+          phone is required
+        </div>
+        <div class="alert alert-danger" *ngIf="phn.errors?.pattern && phn.touched">
+           not valid
+       </div>
+      </div>
+       <div>
+        <div class="form-group">
+          <button [disabled]="form.invalid" value="Update" class="btn btn-success">submit</button>
+        </div>
+      </div>
+    </div>
+    </div>
+    </form>

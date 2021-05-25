@@ -1,0 +1,16 @@
+
+
+
+.failmail {
+    text-align: center;
+    color: red;
+    font-size: 18px;
+    padding-top: 1em;
+}
+
+.successmail {
+    text-align: center;
+    color: green;
+    font-size: 18px;
+    padding-top: 1em;
+}
