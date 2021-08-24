@@ -1,63 +1,93 @@
 
 
 
-
 <div *ngIf="mainForm">
 
-<div class="py-5">
-  <div class="row">
-      <div class="col-md-6 mx-auto">
-          <div class="card rounded-0">
-              <div class="card-header">
-                  <h3 class="mb-0">Login</h3>
-              </div>
-              <div class="card-body">
-                  <form #form="ngForm"(ngSubmit)="loginData()">
-                      <div class="form-group" [class.has-error]="email.invalid && email.touched">
-                          <label for="email">Enter your email</label>
-                          <input id="email" [(ngModel)]="loginUserData.email" required email type="text" name="email"  #email="ngModel" class="form-control rounded-0">
-                          <div class="alert alert-danger" *ngIf="email.errors?.required && email.touched">
-                            Email is required
-                          </div>
-                           <div class="alert alert-danger" *ngIf="email.errors?.email && email.touched">
-                             Email is invalid
-                           </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" [(ngModel)]="loginUserData.password" required password name="password" #password="ngModel" class="form-control rounded-0" required maxlength="80" minlength="5">
-                            <div class="alert alert-danger" *ngIf="password.errors?.required && password.touched">
-                                Password is required
-                              </div>
-                        </div>
-                        <button [disabled]="form.invalid" type="submit" class="btn btn-success float-right">Login</button>
-                         <p class="float-left" >
-                           <button class="btn btn-primary"(click)="onGoto()">Register</button>
-                           <a style="color: dodgerblue;text-decoration: underline;cursor: pointer;" href="javascript:void(0);"(click)="ResetPwd()">Forgotpassword?</a>&nbsp;&nbsp;
-                         </p>
-                         
-                  
 
-                        <!-- <button  class="btn btn-primary" style="background-color: #385998;border-color: #385998;" (click)="facebookLogin()"><i class="fa fa-facebook">Facebook login</i></button>
-                       <button  class="btn btn-primary" style="background-color: #c63d2d;border-color: #c63d2d;" (click)="googleLogin()"><i class="fa fa-gmail">Gmail login</i></button>
-                      <a href="/auth/facebook" target="_blank"><button type="button" class="btn btn-success">fb</button></a>
-                       <div class="col md-12" style="text-align:-webkit-center;">
-                          <div class="card" style="width:20rem;margin:20px 0 24px 0;text-align:-webkit-center;"*ngIf="res.photoUrl">
-                              <img [src]="res.photoUrl" alt="image" style="widows:200px;border-radius:50%;margin-top:10px;">
-                              <div class="card-body">
-                                  <h4 class="card-title">{{res.name}}</h4>
-                                  <p class="card-text">{{res.email}} </p>
-                              </div>
-                          </div>
-                      </div> -->
-                  </form>
-              </div>
-          </div>
-      </div>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Management system</h2>
+				</div>
+			</div>
+			<app-loader *ngIf="isLoading"></app-loader>
+			<div class="row justify-content-center">
+				<div class="col-md-7 col-lg-5">
+					<div class="wrap">
+						<div class="img" style="background-image: url(../../../assets/images/bg-1.jpg);"></div>
+						<div class="login-wrap p-4 p-md-5">
+			      	<div class="d-flex">
+			      		<div class="w-100">
+			      			<h3 class="mb-4">Sign In</h3>
+			      		</div>
+								<div class="w-100">
+									<p class="social-media d-flex justify-content-end">
+										<a href="javascript:void(0);" (click)="onFblogin()" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-facebook"></span></a>
+										<a href="javascript:void(0);" (click)="onGmaillogin()" class="social-icon d-flex align-items-center justify-content-center"><span class="fa fa-google"></span></a>
+									</p>
+								</div>
+			      	</div>
+							<form #form="ngForm"(ngSubmit)="loginData()" class="signin-form">
+			      		<div class="form-group mt-3" [class.has-error]="email.invalid && email.touched">
+			      			<input id="email" [(ngModel)]="loginUserData.email" required email type="text" name="email"  #email="ngModel" class="form-control">
+			      			<label class="form-control-placeholder" for="email">Email</label>
+                  <div class="alert alert-danger" *ngIf="email.errors?.required && email.touched">
+                    Email is required
+                  </div>
+                   <div class="alert alert-danger" *ngIf="email.errors?.email && email.touched">
+                     Email is invalid
+                   </div>
+			      		</div>
+		            <div class="form-group">
+		              <!-- <input id="password-field" type="password" class="form-control" required> -->
+                  <input id="password-field"  [type]="isfieldTextType ? 'text' : 'password'" [(ngModel)]="loginUserData.password" required password name="password" #password="ngModel" class="form-control" required maxlength="10" minlength="4">
+		              <label class="form-control-placeholder" for="password">Password</label>
+		              <span   class="fa field-icon"
+                  [ngClass]="{
+                    'fa-eye-slash': !isfieldTextType,
+                    'fa-eye': isfieldTextType
+                  }"
+                  (click)="toggleFieldTextType()"></span>
+                  <!-- <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span> -->
+                  <div class="alert alert-danger" *ngIf="password.errors?.required && password.touched">
+                    Password is required
+                  </div>
+		            </div>
+		            <div class="form-group">
+		            	<button [disabled]="form.invalid" type="submit" class="form-control btn btn-primary rounded submit px-3">Sign In</button>
+		            </div>
+		            <div class="form-group d-md-flex">
+		            	<div class="w-50 text-left">
+			            	<label class="checkbox-wrap checkbox-primary mb-0">keep me logged in
+									  <input type="checkbox" checked [(ngModel)]="rememberme"  name="something">
+									  <span class="checkmark"></span>
+										</label>
+									</div>
+									<div class="w-50 text-md-right">
+										<a href="javascript:void(0);" (click)="ResetPwd()">Forgot Password</a>
+									</div>
+		            </div>
+		          </form>
+		          <p class="text-center">Not a member? <a data-toggle="tab" href="javascript:void(0);" (click)="newUser()">Sign Up</a></p>
+		        </div>
+		      </div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-  </div>
-  </div>
+
+
+
+
+
+
+
 </div>
+
+
+
 
 <div *ngIf="pwdForm">
 
@@ -66,6 +96,7 @@
 <div class="col-md-6 mx-auto">
 <div  class="card rounded-0">
     <h5 class="card-header">ResetPassword</h5>
+	<app-loader *ngIf="isLoading"></app-loader>
     <div class="card-body">
      <div [formGroup]="forgotPwdform">
         <div class="login_form" style="font-weight: bold;">
@@ -76,7 +107,7 @@
                <button class="btn btn-danger" (click)="onCancel()" style="float: right;">cancel</button>
                <div *ngIf="errormsg">
                 <p class="failmail">Email was not registered with us..!</p>
-            </div>
+                </div>
             <div *ngIf="successmsg">
                 <p class="successmail">Email sent succesfully!</p>
             </div>

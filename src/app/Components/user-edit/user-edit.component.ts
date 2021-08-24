@@ -32,6 +32,10 @@ export class UserEditComponent implements OnInit {
     }
   }
 
+  onGoto(){
+    this.router.navigate(['/user-list'])
+  }
+
   
 
 }

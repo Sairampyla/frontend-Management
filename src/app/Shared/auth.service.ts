@@ -4,11 +4,13 @@ import { Router } from '@angular/router';
 
 
 
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
+//private _logUrl:string = "https://backend-auth1.herokuapp.com/employees/login"
 private _logUrl:string = "http://localhost:8080/employees/login"
   constructor(private http:HttpClient,private route:Router) { }
 
@@ -20,6 +22,7 @@ private _logUrl:string = "http://localhost:8080/employees/login"
   loggedIn(){
     return !!localStorage.getItem('token')
   }
+  
   logoutUser(){
     localStorage.removeItem('token')
     this.route.navigate(['/login'])

@@ -1,64 +1,103 @@
 
+
+
+ <div id="sect1"class="container">       
+  
+  <app-loader *ngIf="isLoading"></app-loader>
+<div class="container custom-container">
+  <div class="col-md-12">
     
-
-<form #form="ngForm" (ngSubmit)="onSubmit()">
-
-  <div class="container custom-container">
-    <div class="col-md-12">
-    <div class="form-group">
-      <h3 class="mb-3 text-center">Create Employee</h3>
-     <label for="name">Enter your name</label>
-     <input type="text" id="name" required [(ngModel)]="employeeDetails.name" name="name" #fname="ngModel"  class="form-control">
-     <div [hidden]="fname.valid || fname.pristine" class="alert alert-danger">
-      Name required
+    <form [formGroup]="taskFormm" (ngSubmit)="onSubmit()">
+    <div class="form-group grp grp_det col-md-4">
+      <label class="bg" >Name</label>
+      <input type="text" formControlName="name" class="form-control">
+      <small class="errormessage" *ngIf="submitted && taskFormm.controls.name.hasError('required')">
+        Name is required
+    </small>
     </div>
-    </div>
-    <div class="form-group" [class.has-error]="email.invalid && email.touched">
-      <label for="email">Enter your email</label>
-      <input id="email" required email type="text" [(ngModel)]="employeeDetails.email" name="email" #email="ngModel" class="form-control">
-      <div class="alert alert-danger" *ngIf="email.errors?.required && email.touched">
+  
+    <div class="form-group grp grp_det col-md-4">
+      <label  class="bg" >Email</label>
+      <input type="text" formControlName="email" class="form-control">
+      <small class="errormessage" *ngIf="submitted && taskFormm.controls.email.hasError('required')">
         Email is required
-      </div>
-       <div class="alert alert-danger" *ngIf="email.errors?.email && email.touched">
-         Email is invalid
-        </div>
+    </small>
+      <small class="errormessage" *ngIf="submitted && taskFormm.controls.email.hasError('pattern')">Email pattern
+        does'nt match</small>
     </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" [(ngModel)]="employeeDetails.password" required password name="password" #password="ngModel" class="form-control rounded-0" required maxlength="80" minlength="5">
-      <div class="alert alert-danger" *ngIf="password.errors?.required && password.touched">
-          Password is required
-        </div>
-  </div>
-    <div class="form-group">
-      <label for="joindate">Enter your Joining date</label>
-      <input type="date" id="joindate" required [(ngModel)]="employeeDetails.joiningDate" name="joindate" #jdate="ngModel" class="form-control">
-      <div [hidden]="jdate.valid ||jdate.untouched" class="alert alert-danger">Date required</div>
+    <div class="form-group grp grp_det col-md-4">
+      <label  class="bg">password</label>
+      <input type="password" formControlName="password" class="form-control">
+      <small class="errormessage" *ngIf="submitted && taskFormm.controls.password.hasError('required')">
+        Password is required
+    </small>
     </div>
-      <div class="form-group">
-      <label for="country">Enter your country</label>
-      <input id="country" required type="text" [(ngModel)]="employeeDetails.country" name="country" #count="ngModel" class="form-control">
-      <div [hidden]="count.valid || count.pristine" class="alert alert-danger">
-        Country required
-      </div>
+    <div class="form-group grp grp_det col-md-4">
+      <label  class="bg">Phone</label>
+      <input   
+                formControlName="phone"  
+                id="phone"   
+                type="text"   
+                class="form-control">  
+                <small class="errormessage" *ngIf="submitted && taskFormm.controls.phone.hasError('required')">
+                  Phone is required
+              </small>
+          <small class="errormessage" *ngIf="submitted && taskFormm.controls.phone.hasError('pattern')">Phone number pattern
+                  does'nt match</small>
     </div>
-    <div class="form-group">
-      <label for="phone">Enter your phone</label>
-      <input type="tel"[pattern]="mobNumberPattern" id="phone" required [(ngModel)]="employeeDetails.phone" name="phone" #phn="ngModel" class="form-control">
-      <div class="alert alert-danger" *ngIf="phn.errors?.required && phn.touched">
-        phone is required
-      </div>
-      <div class="alert alert-danger" *ngIf="phn.errors?.pattern && phn.touched">
-         not valid
-     </div>
+    <div class="form-group grp grp_det col-md-4">
+      <label  class="bg" >Join-date</label>
+      <input type="date" formControlName="joindate" class="form-control">
+      <small class="errormessage" *ngIf="submitted && taskFormm.controls.joindate.hasError('required')">
+        Join-date is required
+    </small>
     </div>
-    <div>
-     <button [disabled]="form.invalid" type="submit" class="btn btn-success">submit</button>
-      <p class="float-right" >
-        <button class="btn btn-primary"(click)="onGoto()">Login</button>
-      </p>
-     </div>
+    <div class="form-group grp grp_det col-md-4">
+      <label  class="bg">Country</label>
+      <input type="text" formControlName="country" class="form-control">
+      <small class="errormessage" *ngIf="submitted && taskFormm.controls.country.hasError('required')">
+        Country is required
+    </small>
+    </div>
+    <div class="form-group grp grp_det  col-md-8">
+      <div>
+        <label  class="bg" style="margin-right: 10px;">Gender</label><br/>
+        <input id="low" type="radio" value ="M" name="gender" formControlName="gender" >
+        <label  class="bg" for="low" style="margin-right: 10px;">&nbsp;Male</label>
+        <input id="medium" type="radio" value ="F" name="gender" formControlName="gender">
+        <label  class="bg" for="medium"  style="margin-right: 10px;">&nbsp;Female</label>
+        <input id="high" type="radio" value ="O" name="gender" formControlName="gender">
+        <label   class="bg" for="high">&nbsp;Others</label>
      
+   </div> 
+   <small class="errormessage" *ngIf="submitted && taskFormm.controls.gender.hasError('required')">
+    Gender is required
+</small>
   </div>
-</div>
-</form>
+    <div class="row">
+   <div class="form-group grp grp_det col-md-2">
+   
+      <div>
+          <input type="file" accept="image/*"  #file style="display:none" (change)="fileProgress($event)">
+          <a href="javascript:void(0);"  class="bg" (click)="file.click()">Upload photo</a>
+      </div>
+      </div>
+      <div class="form-group grp grp_det col-md-2">
+      <div class="image-preview" *ngIf="previewUrl">
+        <img [src]="previewUrl" style="background: black;width:150px;height:150px" />                 
+    </div>
+      </div>
+     </div>
+     <div class="row pt-lg-4">
+      <div class="col-md-2">
+          <a><input type="submit" class="save_btn" value="Save"></a>
+      </div>
+      <div class="col-md-2">
+          <a><input type="button" (click)="cancel()" class="cancel_btn" style="padding: 5px;" value="Cancel"></a>
+      </div>
+  </div>
+    </form>
+  </div>
+  </div>
+  </div>
+ 

@@ -51,7 +51,7 @@ onSendPwd(){
   }
   console.log(Getdata);
 
-  this.auth.changePassword(Getdata).subscribe(res =>{
+  this.auth.forgotPassword(Getdata).subscribe(res =>{
     console.log("pwd changed successfully",res);
     this.route.navigate(['/login'])
 

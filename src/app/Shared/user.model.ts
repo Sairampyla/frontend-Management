@@ -6,9 +6,11 @@ export class Employees {
   name:string;
   email:string;
   password:string;
-  joiningDate:string;
+  joindate:string;
   country:string;
   phone:string;
+  gender:string;
+  file:any;
   success?: boolean;
   token?: string;
 }
