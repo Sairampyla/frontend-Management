@@ -157,6 +157,8 @@ preview() {
               }
               else{
                 alert("error occured");
+                this.isLoading = false;
+                this.spinner.hide();
               }
 
             })

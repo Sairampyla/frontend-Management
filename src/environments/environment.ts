@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
 
-  storeLogo : "https://backend-auth1.herokuapp.com/api/storelogo/",
+   storeLogo : "https://backend-auth1.herokuapp.com/api/storelogo/",
+ // storeLogo : "http://localhost:8080/api/storelogo/",
   Apiurl:"https://backend-auth1.herokuapp.com"
 
 

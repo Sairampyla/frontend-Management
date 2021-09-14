@@ -219,7 +219,7 @@ toggleFieldTextType() {
       this.isLoading = true;
         this.spinner.show();
       this.auth.googleLogin({name:x.name,
-        googleId:x.id,files:x.photoUrl,email:x.email}).subscribe((res:any)=>{
+        googleId:x.id,files:x.photoUrl,email:x.email,provider:x.provider}).subscribe((res:any)=>{
         //  this.isGooglePic = false;  this.isLoading = true;
         
 
@@ -234,6 +234,8 @@ toggleFieldTextType() {
             this.isLoading = false;
             localStorage.setItem('token',res['token'])
             localStorage.setItem("username",res.fetchedUser.name)
+            localStorage.setItem("email",res.fetchedUser.email)
+            localStorage.setItem("provider",res.fetchedUser.provider)
             this.route.navigate(['/user-list'])
           }else{
             alert("login not occured");
@@ -247,13 +249,15 @@ toggleFieldTextType() {
   onFblogin(){
   this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then((y:any)=>{
    // console.log(fbuser,"fb user");
+   console.log(y,"data from Facebook...")
    this.isLoading = true;
    this.spinner.show();
     this.auth.facebookLogin({name:y.name,
-    fbId:y.id,files:y.photoUrl}).subscribe((res:any)=>{
+    fbId:y.id,files:y.photoUrl,provider:y.provider}).subscribe((res:any)=>{
       console.log(res,"response");
       if(res['success']){
         localStorage.setItem('token',res['token'])
+        localStorage.setItem("provider",res.fetchedUser.provider)
         this.route.navigate(['/user-list'])
       }else{
         alert("login not occured");

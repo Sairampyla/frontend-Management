@@ -14,16 +14,20 @@ import { Cookie } from 'ng2-cookies/ng2-cookies';
 })
 export class RestApiService {
   formdata : Employees;
+   token: any = localStorage.getItem('token')
  
-// private _url:string = environment.Apiurl;
- private _url:string = 'http://localhost:8080'
+//private _url:string = environment.Apiurl;
+private _url:string = 'http://localhost:8080'
+  
  
   httpOptions = {
+    
     headers: new HttpHeaders({
       // "Content-Type": "multipart/form-data",
       "Accept": 'application/json',
       // "enctype": "multipart/form-data"
-      "Access-Control-Allow-Origin": "*"
+      "Access-Control-Allow-Origin": "*",
+      "x-access-token":this.token
       
     })
   }
@@ -31,31 +35,31 @@ export class RestApiService {
   constructor(private http: HttpClient,private route:Router,
     private socialLogins:SocialAuthService) { }
    
-  getEmployees(): Observable<Employees> {
-    return this.http.get<Employees>(this._url +'/employees');
-  }
+  // getEmployees(): Observable<Employees> {
+  //   return this.http.get<Employees>(this._url +'/employees',this.httpOptions);
+  // }
 
-  createEmployeee(data): Observable<Employees> {
-    return this.http.post<Employees>(this._url +'/employees', data, this.httpOptions);
-  }
+  // createEmployeee(data): Observable<Employees> {
+  //   return this.http.post<Employees>(this._url +'/employees', data, this.httpOptions);
+  // }
 
-  getEmployee(id): Observable<Employees> {
-    return this.http.get<Employees>( this._url +'/employees/'+ id);
-  }
+  // getEmployee(id): Observable<Employees> {
+  //   return this.http.get<Employees>( this._url +'/employees/'+ id);
+  // }
 
-  updateEmployeee(id, employee): Observable<Employees> {
-    return this.http.put<Employees>(this._url +'/employees/' + id,
-    JSON.stringify(employee), this.httpOptions);
-  }
+  // updateEmployeee(id, employee): Observable<Employees> {
+  //   return this.http.put<Employees>(this._url +'/employees/' + id,
+  //   JSON.stringify(employee), this.httpOptions);
+  // }
   
-  deleteEmployeee(id) {
-    return this.http.delete<Employees>(this._url +'/employees/' + id);
-  }
+  // deleteEmployeee(id) {
+  //   return this.http.delete<Employees>(this._url +'/employees/' + id);
+  // }
 
 
 
   getData(): Observable<Employees> {
-    return this.http.get<Employees>(this._url + '/employees');
+    return this.http.get<Employees>(this._url + '/employees',this.httpOptions);
   }
 
   createEmployee(data) {

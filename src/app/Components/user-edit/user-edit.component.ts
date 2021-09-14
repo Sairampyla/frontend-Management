@@ -19,16 +19,16 @@ export class UserEditComponent implements OnInit {
     public router: Router
     ) { }
   ngOnInit() {
-    this.restApi.getEmployee(this.id)
-      .subscribe(data => this.employeeData = data);
+    //this.restApi.getEmployee(this.id)
+      //.subscribe(data => this.employeeData = data);
   }
 
   updateEmployee() {
     if(window.confirm('Are you sure you want to update?')) {
-      this.restApi.updateEmployee(this.id, this.employeeData)
-        .subscribe(data => {
-          this.router.navigate(['/user-list']),(window.alert('employee updated'))
-        })
+   //   this.restApi.updateEmployee(this.id, this.employeeData)
+       // .subscribe(data => {
+       //   this.router.navigate(['/user-list']),(window.alert('employee updated'))
+      //  })
     }
   }
 

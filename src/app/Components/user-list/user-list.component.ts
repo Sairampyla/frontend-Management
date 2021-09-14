@@ -41,6 +41,7 @@ export class UserListComponent implements OnInit {
 
   userName =  localStorage.getItem("username")
   logEmail =  localStorage.getItem("email")
+  provider = localStorage.getItem("provider")
   logId =  localStorage.getItem("id")
     Employee: any = [];
     Edit:any =[];
@@ -95,8 +96,15 @@ state$: Observable<object>;
 
     //password-change
     onChangePwd(){
-      this.gridPanel = false;
-      this.ispwdForm = true;
+
+      if(this.provider){
+           alert("youre loged in with social media sign in...you cannot access this.!")
+      }else{
+        this.gridPanel = false;
+        this.ispwdForm = true;
+      }
+      
+      
 
     }
 
@@ -324,13 +332,13 @@ console.log(...formData);
         
   
       //  const formValue = this.taskForm.value;
-        var formData: any = new FormData(); 
+        var formDataa: any = new FormData(); 
       //  formData.append( "_id",this.editObj._id),
         formData.append("name",this.taskForm.get('name').value),
         formData.append("email",this.taskForm.get('email').value),
-        formData.append("password",this.taskForm.get('password').value)
-        var check = formData.append("password",this.taskForm.get('password').value);
-        console.log(check,"pwd check");
+      //  formData.append("password",this.taskForm.get('password').value)
+     //   var check = formData.append("password",this.taskForm.get('password').value);
+      //  console.log(check,"pwd check");
         
         formData.append("phone",this.taskForm.get('phone').value),
         formData.append("gender",this.taskForm.get('gender').value),
@@ -365,10 +373,10 @@ console.log(...formData);
               
         //  }
 
-         console.log(formData,"data check");
+         console.log(...formDataa,"data check");
          this.isLoading = true;
          this.spinner.show();
-          this.auth.updateEmployee(this.editObj._id,formData).subscribe((x:any)=>{
+          this.auth.updateEmployee(this.editObj._id,formDataa).subscribe((x:any)=>{
 
             if(x.success == true){
               console.log("truee");
